@@ -8,7 +8,7 @@
  *  For example we have:
  **********************************************************************/
 
-console.log($); // jQuery at the ready.
+//console.log($); // jQuery at the ready.
 
 $(document).ready(function () {
 
@@ -19,7 +19,7 @@ $(document).ready(function () {
      *
      **********************************************************************/
 
-    console.log(typeof require('fs').readFile); // "function"
+    //console.log(typeof require('fs').readFile); // "function"
 
     /**********************************************************************
      *
@@ -30,11 +30,29 @@ $(document).ready(function () {
      *  It is dangerous to go alone. Take this:
      *
      **********************************************************************/
-
+    var exec = require('child_process').exec;
     var $prompt = $('#prompt'); // Our terminal <input> element.
     var $output = $('#output'); // A <pre> container for our terminal output.
+    $output.css("color", "#fff");
+    var input;
     $prompt.focus();            // Auto-focus the input on load.
 
+    $prompt.keypress(function(e){
+        if(e.charCode == 13)
+        {
+            input = $prompt.val();
+            $prompt.val("");
+
+            exec(input, function(error, stdout, stderr){
+                //console.log('stdout: ' + stdout);
+                $output.text(stdout + stderr);
+                //console.log('stderr: ' + stderr);
+                if(error !== null){
+                    console.log('exec error: ' + error);
+                }
+            });
+        }
+    })
     // Good luck!
     // ---------------------------------------------------------------------
 

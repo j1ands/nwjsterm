@@ -1,5 +1,6 @@
 {
   "name": "nwjsterminal",
   "version": "1.0.0",
-  "description": "A terminal, in your browser?!"
+  "description": "A terminal, in your browser?!",
+  "main" : "index.html"
 }
